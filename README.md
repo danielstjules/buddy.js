@@ -1,4 +1,3 @@
-buddy.js
-========
+![buddy.js](http://danielstjules.com/buddyjs/logo.png)
 
-Magic number cli tool and library for javascript
+Magic number detector for javascript
