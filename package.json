@@ -1,0 +1,36 @@
+{
+  "name": "buddy.js",
+  "version": "0.0.0",
+  "description": "Magic number cli tool and library for javascript",
+  "keywords": [
+    "magic",
+    "number",
+    "constant",
+    "detection",
+    "detect",
+    "sniffer",
+    "cli",
+    "tool"
+  ],
+  "author": "Daniel St. Jules <danielst.jules@gmail.com>",
+  "licenses": [
+    "MIT"
+  ],
+  "homepage": "https://github.com/danielstjules/buddy.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielstjules/buddy.js.git"
+  },
+  "dependencies": {
+    "bluebird": "*",
+    "acorn": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "expect.js": "*",
+    "rewire": "*"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -R spec spec"
+  }
+}
