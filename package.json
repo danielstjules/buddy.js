@@ -31,6 +31,6 @@
     "rewire": "*"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha -R spec spec"
+    "test": "./node_modules/.bin/mocha --recursive -R spec spec"
   }
 }
