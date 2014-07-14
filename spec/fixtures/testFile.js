@@ -10,13 +10,13 @@ var configObject = {
 };
 
 function getSecondsInDay() {
- return 24 * HOUR;
+  return 24 * HOUR;
 }
 
 function getMillisecondsInDay() {
   // Some stylish code
   return (getSecondsInDay() *
-     (1000)
+      (1000)
   );
 }
 
