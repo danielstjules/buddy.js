@@ -103,7 +103,8 @@ describe('Detector', function() {
       expect(found).to.have.length(1);
       expect(found[0].value).to.be(60);
       expect(found[0].file).to.be('secondsInMinute.js');
-      expect(found[0].line).to.be(2);
+      expect(found[0].fileLength).to.be(3);
+      expect(found[0].lineNumber).to.be(2);
       expect(found[0].lineSource).to.be('return 60;');
       expect(found[0].surroundingLines).to.eql([
         'function getSecondsInMinute() {', 'return 60;', '}'

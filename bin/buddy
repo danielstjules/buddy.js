@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+var program   = require('commander');
+var Detector  = require('../lib/detector');
+var reporters = require('../lib/reporters');
+
+program
+  .version('0.0.0')
+  .usage('[options] <files ...>')
+  .option('-c', '--color', 'enables color in console output')
+  .option('-r, --reporter [simple|detailed]', 'specify the reporter to use (simple)')
+  .option('-i, --ignore <numbers>', 'list of numbers, e.g. 0,0.5,1')
+  .parse(process.argv);
+
+// Assume all unconsumed arguments are paths
+var paths = program.args || [];
+var detector = new Detector(paths);
+
+if (!paths.length) {
+  console.log('Please provide a list of filenames or directories');
+  process.exit(0);
+}
+
+// Map reporter options to their constructors
+var reporterMap = {
+  simple: reporters.Simple,
+  detailed: reporters.Detailed
+};
+
+// Retrieve the requested reporter, defaulting to Simple
+var reporterType;
+if (program.reporter in reporterMap) {
+  reporterType = reporterMap[program.reporter];
+} else {
+  reporterType = reporters.Simple;
+}
+
+var reporter = new reporterType(detector, program.ignore);
+
+detector.run().then(function() {
+  process.exit(0);
+}).catch(function(err) {
+  console.log(err);
+  process.exit(1);
+});
