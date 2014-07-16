@@ -31,6 +31,9 @@
     "expect.js": "*",
     "mock-fs": "*"
   },
+  "bin": {
+    "buddy": "./bin/buddy"
+  },
   "scripts": {
     "test": "./node_modules/.bin/mocha --recursive -R spec spec"
   }
