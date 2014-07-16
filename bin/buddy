@@ -8,7 +8,8 @@ program
   .version('0.0.0')
   .usage('[options] <files ...>')
   .option('-c', '--color', 'enables color in console output')
-  .option('-r, --reporter [simple|detailed]', 'specify the reporter to use (simple)')
+  .option('-r, --reporter [simple|detailed|json]',
+    'specify the reporter to use (simple)')
   .option('-i, --ignore <numbers>', 'list of numbers, e.g. 0,0.5,1')
   .parse(process.argv);
 
@@ -21,21 +22,15 @@ if (!paths.length) {
   process.exit(0);
 }
 
-// Map reporter options to their constructors
-var reporterMap = {
-  simple: reporters.Simple,
-  detailed: reporters.Detailed
-};
-
-// Retrieve the requested reporter, defaulting to Simple
+// Retrieve the requested reporter, defaulting to simple
 var reporterType;
-if (program.reporter in reporterMap) {
-  reporterType = reporterMap[program.reporter];
+if (program.reporter in reporters) {
+  reporterType = reporters[program.reporter];
 } else {
-  reporterType = reporters.Simple;
+  reporterType = reporters.simple;
 }
 
-var reporter = new reporterType(detector, program.ignore);
+var reporter = new reporterType(detector, program.ignore, program.color);
 
 detector.run().then(function() {
   process.exit(0);

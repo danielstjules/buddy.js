@@ -24,7 +24,8 @@
   "dependencies": {
     "bluebird": "*",
     "acorn": "*",
-    "commander": "*"
+    "commander": "*",
+    "underscore": "*"
   },
   "devDependencies": {
     "mocha": "*",
