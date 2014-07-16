@@ -1,25 +1,47 @@
 #!/usr/bin/env node
 
+var sep       = require('path').sep;
+var fs        = require('fs');
+var file      = require('file');
 var program   = require('commander');
 var Detector  = require('../lib/detector');
 var reporters = require('../lib/reporters');
 
 program
-  .version('0.0.0')
+  .version('0.0.1')
   .usage('[options] <files ...>')
-  .option('-c', '--color', 'enables color in console output')
+  .option('-i, --ignore <numbers>', 'list numbers to ignore (default: 0,1)')
+  .option('-I, --disable-ignore', 'disables the ignore list')
   .option('-r, --reporter [simple|detailed|json]',
-    'specify the reporter to use (simple)')
-  .option('-i, --ignore <numbers>', 'list of numbers, e.g. 0,0.5,1')
+    'specify the reporter to use (default: simple)')
+  .option('-c, --color', 'enables color in console output')
   .parse(process.argv);
 
 // Assume all unconsumed arguments are paths
-var paths = program.args || [];
-var detector = new Detector(paths);
-
-if (!paths.length) {
+var suppliedPaths = program.args || [];
+if (!suppliedPaths.length) {
   console.log('Please provide a list of filenames or directories');
   process.exit(0);
+}
+
+// Iterate over the given paths, and recurse if they're directories
+var paths = [];
+suppliedPaths.forEach(function(path) {
+  if (fs.statSync(path).isFile()) {
+    return paths.push(path);
+  }
+
+  var dirContents = file.walkSync(path, function(dirPath, dirs, files) {
+    files.forEach(function(file) {
+      paths.push(dirPath + sep + file);
+    });
+  });
+});
+
+// Get the list of numbers to ignore
+var ignore = [];
+if (!program.disableIgnore) {
+  ignore = program.ignore || [0, 1];
 }
 
 // Retrieve the requested reporter, defaulting to simple
@@ -30,7 +52,8 @@ if (program.reporter in reporters) {
   reporterType = reporters.simple;
 }
 
-var reporter = new reporterType(detector, program.ignore, program.color);
+var detector = new Detector(paths);
+var reporter = new reporterType(detector, ignore, program.color);
 
 detector.run().then(function() {
   process.exit(0);
