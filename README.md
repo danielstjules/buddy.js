@@ -16,7 +16,7 @@ npm install -g buddy.js
 ## Usage
 
 ```
-Usage: buddy [options] <files ...>
+Usage: buddy [options] <paths ...>
 
 Options:
 
