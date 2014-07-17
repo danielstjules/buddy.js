@@ -33,8 +33,13 @@ if (!program.color) {
 // Iterate over the given paths, and recurse if they're directories
 var paths = [];
 suppliedPaths.forEach(function(path) {
-  if (fs.statSync(path).isFile()) {
-    return paths.push(path);
+  try {
+    if (fs.statSync(path).isFile()) {
+      return paths.push(path);
+    }
+  } catch(e) {
+    console.log('No such file or directory:', path);
+    process.exit(3);
   }
 
   var dirContents = file.walkSync(path, function(dirPath, dirs, files) {
