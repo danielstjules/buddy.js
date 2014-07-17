@@ -20,10 +20,10 @@ Usage: buddy [options] <paths ...>
 
 Options:
 
--h, --help                             output usage information
--V, --version                          output the version number
--i, --ignore <numbers>                 list numbers to ignore (default: 0,1)
--I, --disable-ignore                   disables the ignore list
--r, --reporter [simple|detailed|json]  specify the reporter to use (default: simple)
--c, --color                            enables color in console output
+  -h, --help                             output usage information
+  -V, --version                          output the version number
+  -i, --ignore <numbers>                 list numbers to ignore (default: 0,1)
+  -I, --disable-ignore                   disables the ignore list
+  -r, --reporter [simple|detailed|json]  specify the reporter to use (default: simple)
+  -C, --no-color                         disables colors
 ```

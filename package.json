@@ -25,7 +25,8 @@
     "bluebird": "*",
     "acorn": "*",
     "commander": "*",
-    "file": "*"
+    "file": "*",
+    "chalk": "*"
   },
   "devDependencies": {
     "mocha": "*",

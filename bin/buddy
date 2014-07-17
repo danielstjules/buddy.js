@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var sep       = require('path').sep;
+var chalk     = require('chalk');
 var fs        = require('fs');
 var file      = require('file');
 var program   = require('commander');
@@ -14,7 +15,7 @@ program
   .option('-I, --disable-ignore', 'disables the ignore list')
   .option('-r, --reporter [simple|detailed|json]',
     'specify the reporter to use (default: simple)')
-  .option('-c, --color', 'enables color in console output')
+  .option('-C, --no-color', 'disables colors')
   .parse(process.argv);
 
 // Assume all unconsumed arguments are paths
@@ -22,6 +23,11 @@ var suppliedPaths = program.args || [];
 if (!suppliedPaths.length) {
   console.log('Please provide a list of filenames or directories');
   process.exit(0);
+}
+
+// chalk doesn't support short flags by default
+if (!program.color) {
+  chalk.enabled = false;
 }
 
 // Iterate over the given paths, and recurse if they're directories
@@ -33,7 +39,14 @@ suppliedPaths.forEach(function(path) {
 
   var dirContents = file.walkSync(path, function(dirPath, dirs, files) {
     files.forEach(function(file) {
-      paths.push(dirPath + sep + file);
+      if (file.slice(-3) !== '.js') return;
+      if (dirPath.indexOf('node_modules') > -1) return;
+
+      if (dirPath.slice(-1) !== sep) {
+        dirPath += sep;
+      }
+
+      paths.push(dirPath + file);
     });
   });
 });
@@ -52,8 +65,8 @@ if (program.reporter in reporters) {
   reporterType = reporters.simple;
 }
 
-var detector = new Detector(paths);
-var reporter = new reporterType(detector, ignore, program.color);
+var detector = new Detector(paths, ignore);
+var reporter = new reporterType(detector);
 
 detector.run().then(function() {
   process.exit(0);
