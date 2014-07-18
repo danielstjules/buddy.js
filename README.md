@@ -32,7 +32,7 @@ Magic numbers are unnamed numerical constants, though the term can sometimes
 be used to refer to other literals as well. Take the following contrived
 example:
 
-```
+``` javascript
 function getTotal(subtotal) {
   var beforeTax = subtotal + 9.99;
   return beforeTax + (beforeTax * 0.13);
@@ -57,7 +57,7 @@ If the tax rate was used in multiple locations, it's prone to human error.
 And it might not be immediately clear that the 9.99 charge is a flat rate
 shipping cost, which can affect maintenance. So how would this be improved?
 
-```
+``` javascript
 var FLAT_SHIPPING_COST = 9.99;
 var SALES_TAX = 0.13;
 
