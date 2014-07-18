@@ -42,7 +42,8 @@ suppliedPaths.forEach(function(path) {
     process.exit(3);
   }
 
-  var dirContents = file.walkSync(path, function(dirPath, dirs, files) {
+  // Look for .js files, ignore node_modules, cleanup paths
+  file.walkSync(path, function(dirPath, dirs, files) {
     files.forEach(function(file) {
       if (file.slice(-3) !== '.js') return;
       if (dirPath.indexOf('node_modules') > -1) return;
@@ -51,7 +52,7 @@ suppliedPaths.forEach(function(path) {
         dirPath += sep;
       }
 
-      if (dirPath.indexOf(sep) !== 0 && dirPath.indexOf('.' + sep) !== 0) {
+      if (dirPath.indexOf(sep) !== 0 && dirPath.indexOf('.') !== 0) {
         dirPath = './' + dirPath;
       }
 
