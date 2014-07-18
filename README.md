@@ -67,8 +67,11 @@ function getTotal(subtotal) {
 }
 ```
 
-Or, if you'd prefer, by using the `const` keyword for variable declaration
-instead of `var`.
+Or, depending on your target platforms or browsers, by using the `const`
+keyword for variable declaration instead of `var`. While `const` is
+available in Node, you should take note of its
+[browser compatibility](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const#Browser_compatibility)
+for front end JavaScript.
 
 ```
 $ buddy example.js
