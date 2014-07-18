@@ -26,6 +26,56 @@ which are ignored by default.
 
 Who's a good boy?
 
+#### What are magic numbers?
+
+Magic numbers are unnamed numerical constants, though the term can sometimes
+be used to refer to other literals as well. Take the following contrived
+example:
+
+```
+function getTotal(subtotal) {
+  var beforeTax = subtotal + 9.99;
+  return beforeTax + (beforeTax * 0.13);
+}
+```
+
+In the above function, the meaning of the two numbers might not be clear.
+What is this 9.99 charge? In our case, let's say it's a shipping rate. And
+what about the 0.14? It's the sales tax. Buddy will highlight those
+two instances:
+
+```
+$ buddy example.js
+
+example.js:2 | var beforeTax = subtotal + 9.99;
+example.js:3 | return beforeTax + (beforeTax * 0.13);
+
+ 2 magic numbers found across 1 file
+ ```
+
+If the tax rate was used in multiple locations, it's prone to human error.
+And it might not be immediately clear that the 9.99 charge is a flat rate
+shipping cost, which can affect maintenance. So how would this be improved?
+
+```
+var FLAT_SHIPPING_COST = 9.99;
+var SALES_TAX = 0.13;
+
+function getTotal(subtotal) {
+  var beforeTax = subtotal + FLAT_SHIPPING_COST;
+  return beforeTax + (beforeTax * SALES_TAX);
+}
+```
+
+Or, if you'd prefer, by using the `const` keyword for variable declaration
+instead of `var`.
+
+```
+$ buddy example.js
+
+ No magic numbers found across 1 file
+```
+
 ## Installation
 
 It can be installed via `npm` using:
