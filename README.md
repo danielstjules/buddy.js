@@ -5,6 +5,10 @@ in your code.
 
 [![Build Status](https://travis-ci.org/danielstjules/buddy.js.png)](https://travis-ci.org/danielstjules/buddy.js)
 
+## Overview
+
+![intro-screenshot](http://danielstjules.com/buddyjs/intro.png)
+
 ## Installation
 
 It can be installed via `npm` using:
