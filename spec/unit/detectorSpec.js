@@ -114,4 +114,32 @@ describe('Detector', function() {
       done(err);
     });
   });
+
+  describe('with constants set to true', function() {
+    it('emits a "found" event for variable declarations', function(done) {
+      var detector = new Detector(['constVariable.js'], true);
+      detector.on('found', listener);
+
+      detector.run().then(function() {
+        expect(found).to.have.length(1);
+        expect(found[0].value).to.be(10);
+        done();
+      }).catch(function(err) {
+        done(err);
+      });
+    });
+
+    it('emits a "found" event for object expressions', function(done) {
+      var detector = new Detector(['constObject.js'], true);
+      detector.on('found', listener);
+
+      detector.run().then(function() {
+        expect(found).to.have.length(1);
+        expect(found[0].value).to.be(10);
+        done();
+      }).catch(function(err) {
+        done(err);
+      });
+    });
+  });
 });

@@ -3,6 +3,8 @@ var Promise = require('bluebird');
 var MINUTE = 60;
 var HOUR = 3600;
 
+const DAY = 86400;
+
 var configObject = {
   key: 90,
   another: 10 * 10,

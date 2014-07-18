@@ -13,6 +13,7 @@ program
   .usage('[options] <paths ...>')
   .option('-i, --ignore <numbers>', 'list numbers to ignore (default: 0,1)')
   .option('-I, --disable-ignore', 'disables the ignore list')
+  .option('-c, --constants', 'require literals to be defined using const')
   .option('-r, --reporter [simple|detailed|json]',
     'specify the reporter to use (default: simple)')
   .option('-C, --no-color', 'disables colors')
@@ -75,7 +76,7 @@ if (program.reporter in reporters) {
   reporterType = reporters.simple;
 }
 
-var detector = new Detector(paths, ignore);
+var detector = new Detector(paths, program.constants, ignore);
 var reporter = new reporterType(detector);
 
 detector.run().then(function() {
