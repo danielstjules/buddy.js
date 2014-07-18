@@ -41,7 +41,7 @@ function getTotal(subtotal) {
 
 In the above function, the meaning of the two numbers might not be clear.
 What is this 9.99 charge? In our case, let's say it's a shipping rate. And
-what about the 0.14? It's the sales tax. Buddy will highlight those
+what about the 0.13? It's the sales tax. Buddy will highlight those
 two instances:
 
 ```
