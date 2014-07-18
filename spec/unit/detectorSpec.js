@@ -37,10 +37,15 @@ describe('Detector', function() {
       expect(detector._filePaths).to.be(filePaths);
     });
 
-    it('defaults to an empty array', function() {
-      var detector = new Detector();
-      expect(detector._filePaths).to.be.an(Array);
-      expect(detector._filePaths).to.be.empty();
+    it('accepts a boolean to enforce the use of const', function() {
+      var detector = new Detector([], true);
+      expect(detector._enforceConst).to.be(true);
+    });
+
+    it('accepts an array of numbers to ignore', function() {
+      var ignore = [1, 2, 3.4];
+      var detector = new Detector([], false, ignore);
+      expect(detector._ignore).to.be(ignore);
     });
   });
 
@@ -71,6 +76,18 @@ describe('Detector', function() {
     });
   });
 
+  it('emits end on completion, passing the number of files parsed', function(done) {
+    var detector = new Detector(['emptyFile.js', 'singleVariable.js']);
+    detector.on('end', function(numFiles) {
+      expect(numFiles).to.be(2);
+      done();
+    });
+
+    detector.run().catch(function(err) {
+      done(err);
+    });
+  });
+
   it('emits no events when parsing an empty file', function(done) {
     var detector = new Detector(['emptyFile.js']);
     detector.on('found', listener);
@@ -84,7 +101,7 @@ describe('Detector', function() {
   });
 
   it('emits no events when the file contains only named constants', function(done) {
-    var detector = new Detector(['singleConstant.js']);
+    var detector = new Detector(['singleVariable.js']);
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -103,11 +120,13 @@ describe('Detector', function() {
       expect(found).to.have.length(1);
       expect(found[0].value).to.be(60);
       expect(found[0].file).to.be('secondsInMinute.js');
+      expect(found[0].startColumn).to.be(9);
+      expect(found[0].endColumn).to.be(11);
       expect(found[0].fileLength).to.be(3);
       expect(found[0].lineNumber).to.be(2);
-      expect(found[0].lineSource).to.be('return 60;');
+      expect(found[0].lineSource).to.be('  return 60;');
       expect(found[0].surroundingLines).to.eql([
-        'function getSecondsInMinute() {', 'return 60;', '}'
+        'function getSecondsInMinute() {', '  return 60;', '}'
       ]);
       done();
     }).catch(function(err) {
@@ -115,7 +134,20 @@ describe('Detector', function() {
     });
   });
 
-  describe('with constants set to true', function() {
+  it('skips unnamed constants within the ignore list', function(done) {
+    var detector = new Detector(['ignore.js'], false, [0]);
+    detector.on('found', listener);
+
+    detector.run().then(function() {
+      expect(found).to.have.length(1);
+      expect(found[0].value).to.be(1);
+      done();
+    }).catch(function(err) {
+      done(err);
+    });
+  });
+
+  describe('with enforceConst set to true', function() {
     it('emits a "found" event for variable declarations', function(done) {
       var detector = new Detector(['constVariable.js'], true);
       detector.on('found', listener);

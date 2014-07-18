@@ -1,11 +1,15 @@
 module.exports = {
   'emptyFile.js': '',
-  'singleConstant.js': 'var MINUTE = 60;',
+  'singleVariable.js': 'var MINUTE = 60;',
   'es5.js': '"use strict";',
   'secondsInMinute.js':
     "function getSecondsInMinute() {\n" +
-      "return 60;\n" +
+    "  return 60;\n" +
     "}",
+  'ignore.js':
+    "setTimeout(function() {\n" +
+    "  console.log(1);\n" +
+    "}, 0);",
   'constVariable.js':
     "var invalid = 10;\n" +
     "const valid = 20;",

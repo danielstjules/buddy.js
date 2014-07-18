@@ -96,9 +96,9 @@ Options:
 
   -h, --help                             output usage information
   -V, --version                          output the version number
+  -e, --enforce-const                    require literals to be defined using const
   -i, --ignore <numbers>                 list numbers to ignore (default: 0,1)
   -I, --disable-ignore                   disables the ignore list
-  -c, --constants                        require literals to be defined using const
   -r, --reporter [simple|detailed|json]  specify the reporter to use (default: simple)
   -C, --no-color                         disables colors
 ```
