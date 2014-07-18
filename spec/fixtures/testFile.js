@@ -5,7 +5,7 @@ var HOUR = 3600;
 
 var configObject = {
   key: 90,
-  another: 100 * 10,
+  another: 10 * 10,
   10: 'an "integer" key'
 };
 
