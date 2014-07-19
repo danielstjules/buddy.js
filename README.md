@@ -22,7 +22,7 @@ numbers which are not the sole literal in an object expression or variable
 declaration. Furthermore, specific values can be ignored, such as 0 and 1,
 which are ignored by default.
 
-![intro-screenshot](http://danielstjules.com/buddyjs/intro-updated.png)
+![intro-screenshot](http://danielstjules.com/buddyjs/intro.png)
 
 Who's a good boy?
 
