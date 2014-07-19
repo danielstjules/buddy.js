@@ -79,8 +79,17 @@ if (program.reporter in reporters) {
 var detector = new Detector(paths, program.enforceConst, ignore);
 var reporter = new reporterType(detector);
 
+var found = 0;
+detector.on('found', function() {
+  found++;
+});
+
 detector.run().then(function() {
-  process.exit(0);
+  if (found) {
+    process.exit(found);
+  } else {
+    process.exit(0);
+  }
 }).catch(function(err) {
   console.log(err);
   process.exit(1);
