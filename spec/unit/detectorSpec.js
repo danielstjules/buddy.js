@@ -125,9 +125,10 @@ describe('Detector', function() {
       expect(found[0].fileLength).to.be(3);
       expect(found[0].lineNumber).to.be(2);
       expect(found[0].lineSource).to.be('  return 60;');
-      expect(found[0].surroundingLines).to.eql([
+      expect(found[0].contextLines).to.eql([
         'function getSecondsInMinute() {', '  return 60;', '}'
       ]);
+      expect(found[0].contextIndex).to.eql(1);
       done();
     }).catch(function(err) {
       done(err);
