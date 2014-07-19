@@ -105,3 +105,11 @@ Options:
   -r, --reporter [simple|detailed|json]  specify the reporter to use (default: simple)
   -C, --no-color                         disables colors
 ```
+
+## Reporters
+
+For additional context, try using the detailed reporter. Or, for logging output
+and integration with your quality assurance process, the json reporter can
+be used.
+
+![detailed-reporter](http://danielstjules.com/buddyjs/detailed.png)
