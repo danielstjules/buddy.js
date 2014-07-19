@@ -62,6 +62,11 @@ suppliedPaths.forEach(function(path) {
   });
 });
 
+if (!paths.length) {
+  console.log('No .js files found in the list of paths');
+  process.exit(0);
+}
+
 // Get the list of numbers to ignore
 var ignore = [];
 if (!program.disableIgnore) {
