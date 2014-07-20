@@ -69,13 +69,12 @@ describe('BaseReporter', function() {
       var detector = new Detector(['emptyFile.js']);
       var reporter = new TestReporter(detector);
 
-      detector.run().then(function() {
+      detector.run(function(err) {
+        restoreWrite();
+        if (err) return done(err);
+
         expect(output).to.not.be(null);
-        restoreWrite();
         done();
-      }).catch(function(err) {
-        restoreWrite();
-        done(err);
       });
     });
 
@@ -83,13 +82,12 @@ describe('BaseReporter', function() {
       var detector = new Detector(['emptyFile.js']);
       var reporter = new TestReporter(detector);
 
-      detector.run().then(function() {
+      detector.run(function(err) {
+        restoreWrite();
+        if (err) return done(err);
+
         expect(output).to.be("\n No magic numbers found across 1 file\n");
-        restoreWrite();
         done();
-      }).catch(function(err) {
-        restoreWrite();
-        done(err);
       });
     });
 
@@ -97,13 +95,12 @@ describe('BaseReporter', function() {
       var detector = new Detector(['secondsInMinute.js', 'emptyFile.js']);
       var reporter = new TestReporter(detector);
 
-      detector.run().then(function() {
+      detector.run(function(err) {
+        restoreWrite();
+        if (err) return done(err);
+
         expect(output).to.be("\n 1 magic number found across 2 files\n");
-        restoreWrite();
         done();
-      }).catch(function(err) {
-        restoreWrite();
-        done(err);
       });
     });
   });
