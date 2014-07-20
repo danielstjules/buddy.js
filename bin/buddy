@@ -9,7 +9,7 @@ var Detector  = require('../lib/detector');
 var reporters = require('../lib/reporters');
 
 program
-  .version('0.0.1')
+  .version(require('../package.json').version)
   .usage('[options] <paths ...>')
   .option('-e, --enforce-const', 'require literals to be defined using const')
   .option('-i, --ignore <numbers>', 'list numbers to ignore (default: 0,1)')
