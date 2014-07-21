@@ -1,19 +1,19 @@
 var expect         = require('expect.js');
 var chalk          = require('chalk');
-var SimpleReporter = require('../../../lib/reporters/simple.js');
+var DetailedReporter = require('../../../lib/reporters/detailed.js');
 var Detector       = require('../../../lib/detector.js');
 
-describe('SimpleReporter', function() {
+describe('DetailedReporter', function() {
   describe('constructor', function() {
     it('accepts a detector as an argument', function() {
       var detector = new Detector(['']);
-      var reporter = new SimpleReporter(detector);
+      var reporter = new DetailedReporter(detector);
       expect(reporter._detector).to.be(detector);
     });
 
     it('registers a listener for the found event', function() {
       var detector = new Detector(['']);
-      var reporter = new SimpleReporter(detector);
+      var reporter = new DetailedReporter(detector);
       expect(detector.listeners('found')).to.have.length(1);
     });
   });
@@ -41,33 +41,25 @@ describe('SimpleReporter', function() {
       chalk.enabled = enabled;
     });
 
-    it('precedes the output with a newline if the first', function() {
+    it('outputs its location and surrounding lines', function() {
       var detector = new Detector(['']);
-      var reporter = new SimpleReporter(detector);
+      var reporter = new DetailedReporter(detector);
       var result = reporter._getOutput(magicNumber);
 
-      expect(result.slice(0, 1)).to.be("\n");
-    });
-
-    it('outputs its location and source', function() {
-      var detector = new Detector(['']);
-      var reporter = new SimpleReporter(detector);
-      reporter._found = 2;
-      var result = reporter._getOutput(magicNumber);
-
-      expect(result).to.be("secondsInMinute.js:2 | return 60;\n");
+      expect(result).to.be("\nsecondsInMinute.js:2 | magic number: 60\n" +
+        "function getSecondsInMinute() {\n  return 60;\n}\n");
     });
 
     it('colors the string if enabled, and highlights the value', function() {
       chalk.enabled = true;
       var detector = new Detector(['']);
-      var reporter = new SimpleReporter(detector);
-      reporter._found = 2;
+      var reporter = new DetailedReporter(detector);
       var result = reporter._getOutput(magicNumber);
 
-      expect(result).to.be("secondsInMinute.js\u001b[90m:\u001b[39m2 | " +
-        "\u001b[90mreturn \u001b[39m\u001b[31m60\u001b[39m\u001b[90m;" +
-        "\u001b[39m\n");
+      expect(result).to.be("\nsecondsInMinute.js:2 | magic number: 60\n" +
+        "\u001b[90mfunction getSecondsInMinute() {\u001b[39m\n" +
+        "\u001b[90m  return \u001b[39m\u001b[31m60\u001b[39m\u001b[90m;" +
+        "\u001b[39m\n\u001b[90m}\u001b[39m\n");
     });
   });
 });
