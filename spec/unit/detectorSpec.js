@@ -126,6 +126,18 @@ describe('Detector', function() {
     });
   });
 
+  it('emits no events for numbers marked by ignore:line', function(done) {
+    var detector = new Detector(['lineIgnore.js']);
+    detector.on('found', listener);
+
+    detector.run().then(function() {
+      expect(found).to.be.empty();
+      done();
+    }).catch(function(err) {
+      done(err);
+    });
+  });
+
   it('emits a "found" event containing a magic number, when found', function(done) {
     var detector = new Detector(['secondsInMinute.js']);
     detector.on('found', listener);

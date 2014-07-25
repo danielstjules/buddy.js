@@ -6,6 +6,16 @@ module.exports = {
     "function getSecondsInMinute() {\n" +
     "  return 60;\n" +
     "}",
+  'lineIgnore.js':
+    "var SECOND = 1000;\n" +
+    "var MINUTE = 60 * SECOND; // buddy ignore:line\n" +
+    "var HOUR = 60 * MINUTE; // buddy ignore:line",
+  'blockIgnore.js':
+    "// buddy ignore:start\n" +
+    "var SECOND = 1000;\n" +
+    "var MINUTE = 60 * SECOND;\n" +
+    "var HOUR = 60 * MINUTE;\n" +
+    "// buddy ignore:end",
   'objectProperties.js':
     "var colors = {};\n" +
     "colors.RED = 1;\n" +
