@@ -112,6 +112,20 @@ describe('Detector', function() {
     });
   });
 
+ it('emits no events for literals assigned to object properties', function(done) {
+    var detector = new Detector(['objectProperties.js']);
+    detector.on('found', listener);
+
+    detector.run().then(function() {
+      expect(found).to.have.length(2);
+      expect(found[0].lineSource).to.be('colors.BLUE = 2 + 1;');
+      expect(found[1].lineSource).to.be('colors.BLUE = 2 + 1;');
+      done();
+    }).catch(function(err) {
+      done(err);
+    });
+  });
+
   it('emits a "found" event containing a magic number, when found', function(done) {
     var detector = new Detector(['secondsInMinute.js']);
     detector.on('found', listener);

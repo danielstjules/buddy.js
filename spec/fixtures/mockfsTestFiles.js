@@ -6,6 +6,11 @@ module.exports = {
     "function getSecondsInMinute() {\n" +
     "  return 60;\n" +
     "}",
+  'objectProperties.js':
+    "var colors = {};\n" +
+    "colors.RED = 1;\n" +
+    "colors.YELLOW = 2;\n" +
+    "colors.BLUE = 2 + 1;",
   'ignore.js':
     "setTimeout(function() {\n" +
     "  console.log(1);\n" +
