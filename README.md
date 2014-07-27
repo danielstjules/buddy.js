@@ -113,3 +113,40 @@ and integration with your quality assurance process, the json reporter can
 be used.
 
 ![detailed-reporter](http://danielstjules.com/buddyjs/detailed.png)
+
+## Ignoring
+
+A magic number can be ignored in any of three ways:
+
+ 1. Its value is ignored using the `--ignore` flag
+ 2. The line includes the following comment `buddy ignore:line`
+ 3. The line is located between a `buddy ignore:start` and `buddy ignore:end`
+
+Given the following example, two magic numbers exist that could be ignored:
+
+``` javascript
+var SECOND = 1000;
+var MINUTE = 60 * SECOND;
+var HOUR = 60 * MINUTE;
+```
+
+Using the command line option, you can run buddy with:
+`buddy example.js --ignore 60`. Or, if preferred, you can specify that the
+instances be ignored on a case-by-case basis:
+
+``` javascript
+var SECOND = 1000;
+var MINUTE = 60 * SECOND; // buddy ignore:line
+var HOUR = 60 * MINUTE; // buddy ignore:line
+```
+
+Or better yet, you can make use of directives to ignore all magic numbers
+within a range:
+
+``` javascript
+// buddy ignore:start
+var SECOND = 1000;
+var MINUTE = 60 * SECOND;
+var HOUR = 60 * MINUTE;
+// buddy ignore:end
+```
