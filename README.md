@@ -5,6 +5,14 @@ constants in your code.
 
 [![Build Status](https://travis-ci.org/danielstjules/buddy.js.png)](https://travis-ci.org/danielstjules/buddy.js)
 
+* [Overview](#overview)
+  * [What are magic numbers?](#what-are-magic-numbers)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Integration](#integration)
+* [Reporters](#reporters)
+* [Ignoring numbers](#ignoring-numbers)
+
 ## Overview
 
 We all know magic numbers are frowned upon as a programming practice. They may
@@ -106,6 +114,21 @@ Options:
   -C, --no-color                         disables colors
 ```
 
+## Integration
+
+You can easily run Buddy on your library source as part of your build. It will
+exit with an error code of 0 when no magic numbers were found. Otherwise it
+will return a positive error code, and result in a failing build. For example,
+with Travis CI, you can add the following two entries to your `.travis.yml`:
+
+```
+before_script:
+  - "npm install -g buddy.js"
+
+script:
+  - "buddy ./path/to/src"
+```
+
 ## Reporters
 
 For additional context, try using the detailed reporter. Or, for logging output
@@ -114,7 +137,7 @@ be used.
 
 ![detailed-reporter](http://danielstjules.com/buddyjs/detailed.png)
 
-## Ignoring
+## Ignoring numbers
 
 A magic number can be ignored in any of three ways:
 
