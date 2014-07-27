@@ -138,6 +138,18 @@ describe('Detector', function() {
     });
   });
 
+  it('emits no events between ignore:start / ignore:end', function(done) {
+    var detector = new Detector(['blockIgnore.js']);
+    detector.on('found', listener);
+
+    detector.run().then(function() {
+      expect(found).to.be.empty();
+      done();
+    }).catch(function(err) {
+      done(err);
+    });
+  });
+
   it('emits a "found" event containing a magic number, when found', function(done) {
     var detector = new Detector(['secondsInMinute.js']);
     detector.on('found', listener);
