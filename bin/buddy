@@ -68,18 +68,10 @@ if (!paths.length) {
 }
 
 // Get the list of numbers to ignore
-var ignore = [];
-if (!program.disableIgnore) {
-  ignore = program.ignore || [0, 1];
-}
+var ignore = program.disableIgnore ? [] : (program.ignore || [0, 1]);
 
 // Retrieve the requested reporter, defaulting to simple
-var reporterType;
-if (program.reporter in reporters) {
-  reporterType = reporters[program.reporter];
-} else {
-  reporterType = reporters.simple;
-}
+var reporterType = reporters[program.reporter] || reporters.simple;
 
 var detector = new Detector(paths, program.enforceConst, ignore);
 var reporter = new reporterType(detector);
@@ -90,11 +82,7 @@ detector.on('found', function() {
 });
 
 detector.run().then(function() {
-  if (found) {
-    process.exit(found);
-  } else {
-    process.exit(0);
-  }
+  process.exit(found ? found : 0);
 }).catch(function(err) {
   console.log(err);
   process.exit(1);
