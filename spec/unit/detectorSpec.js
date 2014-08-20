@@ -61,9 +61,7 @@ describe('Detector', function() {
       var detector = new Detector(['emptyFile.js']);
       detector.run().then(function() {
         done();
-      }).catch(function(err) {
-        done(err);
-      });
+      }).catch(done);
     });
 
     it('returns an Error if not given an array of file paths', function(done) {
@@ -83,9 +81,7 @@ describe('Detector', function() {
       done();
     });
 
-    detector.run().catch(function(err) {
-      done(err);
-    });
+    detector.run().catch(done);
   });
 
   it('emits no events when parsing an empty file', function(done) {
@@ -95,9 +91,7 @@ describe('Detector', function() {
     detector.run().then(function() {
       expect(found).to.be.empty();
       done();
-    }).catch(function(err) {
-      done(err);
-    });
+    }).catch(done);
   });
 
   it('emits no events when the file contains only named constants', function(done) {
@@ -107,9 +101,7 @@ describe('Detector', function() {
     detector.run().then(function() {
       expect(found).to.be.empty();
       done();
-    }).catch(function(err) {
-      done(err);
-    });
+    }).catch(done);
   });
 
  it('emits no events for literals assigned to object properties', function(done) {
@@ -121,9 +113,7 @@ describe('Detector', function() {
       expect(found[0].lineSource).to.be('colors.BLUE = 2 + 1;');
       expect(found[1].lineSource).to.be('colors.BLUE = 2 + 1;');
       done();
-    }).catch(function(err) {
-      done(err);
-    });
+    }).catch(done);
   });
 
   it('emits no events for numbers marked by ignore:line', function(done) {
@@ -133,9 +123,7 @@ describe('Detector', function() {
     detector.run().then(function() {
       expect(found).to.be.empty();
       done();
-    }).catch(function(err) {
-      done(err);
-    });
+    }).catch(done);
   });
 
   it('emits no events between ignore:start / ignore:end', function(done) {
@@ -145,9 +133,7 @@ describe('Detector', function() {
     detector.run().then(function() {
       expect(found).to.be.empty();
       done();
-    }).catch(function(err) {
-      done(err);
-    });
+    }).catch(done);
   });
 
   it('emits a "found" event containing a magic number, when found', function(done) {
@@ -168,9 +154,7 @@ describe('Detector', function() {
       ]);
       expect(found[0].contextIndex).to.eql(1);
       done();
-    }).catch(function(err) {
-      done(err);
-    });
+    }).catch(done);
   });
 
   it('skips unnamed constants within the ignore list', function(done) {
@@ -181,9 +165,7 @@ describe('Detector', function() {
       expect(found).to.have.length(1);
       expect(found[0].value).to.be(1);
       done();
-    }).catch(function(err) {
-      done(err);
-    });
+    }).catch(done);
   });
 
   describe('with enforceConst set to true', function() {
@@ -195,9 +177,7 @@ describe('Detector', function() {
         expect(found).to.have.length(1);
         expect(found[0].value).to.be(10);
         done();
-      }).catch(function(err) {
-        done(err);
-      });
+      }).catch(done);
     });
 
     it('emits a "found" event for object expressions', function(done) {
@@ -208,9 +188,7 @@ describe('Detector', function() {
         expect(found).to.have.length(1);
         expect(found[0].value).to.be(10);
         done();
-      }).catch(function(err) {
-        done(err);
-      });
+      }).catch(done);
     });
   });
 });
