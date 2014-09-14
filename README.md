@@ -1,9 +1,9 @@
-![buddy.js](http://danielstjules.com/buddyjs/logo.png)
+![buddy.js](http://danielstjules.com/github/buddyjs-logo.png)
 
 Magic number detection for javascript. Let Buddy sniff out the unnamed numerical
 constants in your code.
 
-[![Build Status](https://travis-ci.org/danielstjules/buddy.js.png)](https://travis-ci.org/danielstjules/buddy.js)
+[![Build Status](https://travis-ci.org/danielstjules/buddy.js.svg?branch=master)](https://travis-ci.org/danielstjules/buddy.js)
 
 * [Overview](#overview)
   * [What are magic numbers?](#what-are-magic-numbers)
@@ -30,7 +30,7 @@ numbers which are not the sole literal in an object expression or variable
 declaration. Furthermore, specific values can be ignored, such as 0 and 1,
 which are ignored by default.
 
-![intro-screenshot](http://danielstjules.com/buddyjs/intro-updated.png)
+![intro-screenshot](http://danielstjules.com/github/buddyjs-intro.png)
 
 Who's a good boy?
 
@@ -135,7 +135,7 @@ For additional context, try using the detailed reporter. Or, for logging output
 and integration with your quality assurance process, the json reporter can
 be used.
 
-![detailed-reporter](http://danielstjules.com/buddyjs/detailed.png)
+![detailed-reporter](http://danielstjules.com/github/buddyjs-detailed.png)
 
 ## Ignoring numbers
 
