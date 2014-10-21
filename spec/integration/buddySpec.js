@@ -5,15 +5,24 @@ var exec     = require('child_process').exec;
 
 describe('bin/buddy', function() {
   it('correctly outputs all magic numbers in the test file', function(done) {
-    var opt = {encoding: 'utf8'};
-    fs.readFile(fixtures.testFileOutput, opt, function(err, expectedOut) {
-      if (err) return done(err);
+    // Absolute paths may vary
+    var expectedOutput = [
+      'buddy.js/spec/fixtures/testFile.js:10 | another: 10 * 10,',
+      'buddy.js/spec/fixtures/testFile.js:10 | another: 10 * 10,',
+      'buddy.js/spec/fixtures/testFile.js:15 | return 24 * HOUR;',
+      'buddy.js/spec/fixtures/testFile.js:21 | (1000)',
+      'buddy.js/spec/fixtures/testFile.js:30 | setTimeout(func, 10);',
+      '5 magic numbers found across 1 file'
+    ];
 
-      exec('./bin/buddy -C ' + fixtures.testFile, function(err, stdout, stderr) {
-        expect(stderr).to.be.empty();
-        expect(stdout).to.be(expectedOut);
-        done();
+    exec('./bin/buddy -C ' + fixtures.testFile, function(err, stdout, stderr) {
+      // Ignore err, since the command will fail due to detected
+      // magic numbers
+      expect(stderr).to.be.empty();
+      expectedOutput.forEach(function(str) {
+        expect(stdout).to.contain(str);
       });
+      done();
     });
   });
 });
