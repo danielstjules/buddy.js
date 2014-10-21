@@ -3,7 +3,7 @@ var path = require('path');
 var absolutePaths = {};
 var fixtures = ['emptyFile', 'singleVariable', 'es5', 'secondsInMinute',
                 'lineIgnore', 'blockIgnore', 'objectProperties',
-                'ignore', 'constVariable', 'constObject'];
+                'ignore', 'constVariable', 'constObject', 'shebang'];
 
 fixtures.forEach(function(fixture) {
   absolutePaths[fixture] = path.resolve(__dirname, fixture + '.js');

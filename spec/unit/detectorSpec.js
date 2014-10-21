@@ -159,6 +159,18 @@ describe('Detector', function() {
     }).catch(done);
   });
 
+  it('ignores the shebang at the start of a file', function(done) {
+    var detector = new Detector([fixtures.shebang]);
+    detector.on('found', listener);
+
+    detector.run().then(function() {
+      expect(found).to.have.length(1);
+      expect(found[0].lineNumber).to.be(4);
+      expect(found[0].value).to.be(100);
+      done();
+    }).catch(done);
+  });
+
   describe('with enforceConst set to true', function() {
     it('emits a "found" event for variable declarations', function(done) {
       var detector = new Detector([fixtures.constVariable], true);
