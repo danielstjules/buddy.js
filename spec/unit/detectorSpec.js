@@ -2,8 +2,7 @@ var Promise      = require('bluebird');
 var expect       = require('expect.js');
 var EventEmitter = require('events').EventEmitter;
 var fs           = Promise.promisifyAll(require('fs'));
-var mockfs       = require('mock-fs');
-var fixtures     = require('../fixtures/mockfsTestFiles.js');
+var fixtures     = require('../fixtures');
 var Detector     = require('../../lib/detector.js');
 
 describe('Detector', function() {
@@ -12,14 +11,6 @@ describe('Detector', function() {
   var listener = function(magicNumber) {
     found.push(magicNumber);
   };
-
-  before(function() {
-    mockfs(fixtures);
-  });
-
-  after(function() {
-    mockfs.restore();
-  });
 
   beforeEach(function() {
     found = [];
@@ -51,14 +42,14 @@ describe('Detector', function() {
 
   describe('run', function() {
     it('is compatible with callbacks', function(done) {
-      var detector = new Detector(['emptyFile.js']);
+      var detector = new Detector([fixtures.emptyFile]);
       detector.run(function(err) {
         done(err);
       });
     });
 
     it('is compatible with promises', function(done) {
-      var detector = new Detector(['emptyFile.js']);
+      var detector = new Detector([fixtures.emptyFile]);
       detector.run().then(function() {
         done();
       }).catch(done);
@@ -75,7 +66,7 @@ describe('Detector', function() {
   });
 
   it('emits end on completion, passing the number of files parsed', function(done) {
-    var detector = new Detector(['emptyFile.js', 'singleVariable.js']);
+    var detector = new Detector([fixtures.emptyFile, fixtures.singleVariable]);
     detector.on('end', function(numFiles) {
       expect(numFiles).to.be(2);
       done();
@@ -85,7 +76,7 @@ describe('Detector', function() {
   });
 
   it('emits no events when parsing an empty file', function(done) {
-    var detector = new Detector(['emptyFile.js']);
+    var detector = new Detector([fixtures.emptyFile]);
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -95,7 +86,7 @@ describe('Detector', function() {
   });
 
   it('emits no events when the file contains only named constants', function(done) {
-    var detector = new Detector(['singleVariable.js']);
+    var detector = new Detector([fixtures.singleVariable]);
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -105,7 +96,7 @@ describe('Detector', function() {
   });
 
  it('emits no events for literals assigned to object properties', function(done) {
-    var detector = new Detector(['objectProperties.js']);
+    var detector = new Detector([fixtures.objectProperties]);
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -117,7 +108,7 @@ describe('Detector', function() {
   });
 
   it('emits no events for numbers marked by ignore:line', function(done) {
-    var detector = new Detector(['lineIgnore.js']);
+    var detector = new Detector([fixtures.lineIgnore]);
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -127,7 +118,7 @@ describe('Detector', function() {
   });
 
   it('emits no events between ignore:start / ignore:end', function(done) {
-    var detector = new Detector(['blockIgnore.js']);
+    var detector = new Detector([fixtures.blockIgnore]);
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -137,13 +128,13 @@ describe('Detector', function() {
   });
 
   it('emits a "found" event containing a magic number, when found', function(done) {
-    var detector = new Detector(['secondsInMinute.js']);
+    var detector = new Detector([fixtures.secondsInMinute]);
     detector.on('found', listener);
 
     detector.run().then(function() {
       expect(found).to.have.length(1);
       expect(found[0].value).to.be(60);
-      expect(found[0].file).to.be('secondsInMinute.js');
+      expect(found[0].file.substr(-18)).to.be('secondsInMinute.js');
       expect(found[0].startColumn).to.be(9);
       expect(found[0].endColumn).to.be(11);
       expect(found[0].fileLength).to.be(3);
@@ -158,7 +149,7 @@ describe('Detector', function() {
   });
 
   it('skips unnamed constants within the ignore list', function(done) {
-    var detector = new Detector(['ignore.js'], false, [0]);
+    var detector = new Detector([fixtures.ignore], false, [0]);
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -170,7 +161,7 @@ describe('Detector', function() {
 
   describe('with enforceConst set to true', function() {
     it('emits a "found" event for variable declarations', function(done) {
-      var detector = new Detector(['constVariable.js'], true);
+      var detector = new Detector([fixtures.constVariable], true);
       detector.on('found', listener);
 
       detector.run().then(function() {
@@ -181,7 +172,7 @@ describe('Detector', function() {
     });
 
     it('emits a "found" event for object expressions', function(done) {
-      var detector = new Detector(['constObject.js'], true);
+      var detector = new Detector([fixtures.constObject], true);
       detector.on('found', listener);
 
       detector.run().then(function() {

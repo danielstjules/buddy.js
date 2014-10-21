@@ -23,15 +23,14 @@
   },
   "dependencies": {
     "bluebird": "*",
-    "acorn": "0.7.0",
+    "acorn": "0.9.0",
     "commander": "*",
     "node-filepaths": "*",
     "chalk": "*"
   },
   "devDependencies": {
     "mocha": "*",
-    "expect.js": "*",
-    "mock-fs": "*"
+    "expect.js": "*"
   },
   "bin": {
     "buddy": "./bin/buddy"

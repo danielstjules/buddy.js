@@ -1,8 +1,7 @@
 var expect       = require('expect.js');
 var util         = require('util');
-var mockfs       = require('mock-fs');
 var chalk        = require('chalk');
-var fixtures     = require('../../fixtures/mockfsTestFiles.js');
+var fixtures     = require('../../fixtures');
 var BaseReporter = require('../../../lib/reporters/base.js');
 var Detector     = require('../../../lib/detector.js');
 
@@ -19,14 +18,6 @@ TestReporter.prototype._getOutput = function(magicNumber) {
 };
 
 describe('BaseReporter', function() {
-  before(function() {
-    mockfs(fixtures);
-  });
-
-  after(function() {
-    mockfs.restore();
-  });
-
   describe('constructor', function() {
     it('accepts a detector as an argument', function() {
       var detector = new Detector(['']);
@@ -66,7 +57,7 @@ describe('BaseReporter', function() {
     });
 
     it('can be printed on detector end', function(done) {
-      var detector = new Detector(['emptyFile.js']);
+      var detector = new Detector([fixtures.emptyFile]);
       var reporter = new TestReporter(detector);
 
       detector.run(function(err) {
@@ -79,7 +70,7 @@ describe('BaseReporter', function() {
     });
 
     it('prints the correct results if no numbers were found', function(done) {
-      var detector = new Detector(['emptyFile.js']);
+      var detector = new Detector([fixtures.emptyFile]);
       var reporter = new TestReporter(detector);
 
       detector.run(function(err) {
@@ -92,7 +83,7 @@ describe('BaseReporter', function() {
     });
 
     it('prints the correct results if magic numbers were found', function(done) {
-      var detector = new Detector(['secondsInMinute.js', 'emptyFile.js']);
+      var detector = new Detector([fixtures.secondsInMinute, fixtures.emptyFile]);
       var reporter = new TestReporter(detector);
 
       detector.run(function(err) {
