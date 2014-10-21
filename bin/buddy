@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+var fs        = require('fs');
+var path      = require('path');
+var strip     = require('strip-json-comments');
 var chalk     = require('chalk');
 var filepaths = require('node-filepaths');
 var program   = require('commander');
@@ -16,6 +19,27 @@ program
     'specify the reporter to use (default: simple)')
   .option('-C, --no-color', 'disables colors')
   .parse(process.argv);
+
+// Check and parse .buddyrc file, if it exists
+var rcPath, rcContents, rc, opt;
+rcPath = path.resolve(process.cwd(), '.buddyrc');
+opts = {encoding: 'utf8'};
+
+if (fs.existsSync(rcPath) && fs.lstatSync(rcPath).isFile()) {
+  try {
+    rcContents = strip(fs.readFileSync(rcPath, opts));
+    rc = JSON.parse(rcContents);
+  } catch (e) {
+    console.log('Invalid .buddyrc file:', e.message);
+    process.exit(1);
+  }
+
+  ['enforceConst', 'ignore', 'reporter'].forEach(function(option) {
+    if (program[option] === undefined) {
+      program[option] = rc[option];
+    }
+  });
+}
 
 // Assume all unconsumed arguments are paths
 var suppliedPaths = program.args || [];

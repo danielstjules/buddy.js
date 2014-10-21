@@ -114,6 +114,17 @@ Options:
   -C, --no-color                         disables colors
 ```
 
+If a `.buddyrc` file is located in the project directory, its values will be
+used in place of the defaults listed above. For example:
+
+``` javascript
+{
+  "enforceConst": false,
+  "ignore":       [0, 1, 2], // Use empty array to disable ignore
+  "reporter":     "detailed"
+}
+```
+
 ## Integration
 
 You can easily run Buddy on your library source as part of your build. It will

@@ -26,7 +26,8 @@
     "acorn": "0.9.0",
     "commander": "*",
     "node-filepaths": "*",
-    "chalk": "*"
+    "chalk": "*",
+    "strip-json-comments": "1.0.2"
   },
   "devDependencies": {
     "mocha": "*",
