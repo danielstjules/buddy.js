@@ -1,7 +1,5 @@
-var Promise      = require('bluebird');
 var expect       = require('expect.js');
 var EventEmitter = require('events').EventEmitter;
-var fs           = Promise.promisifyAll(require('fs'));
 var fixtures     = require('../fixtures');
 var Detector     = require('../../lib/detector.js');
 

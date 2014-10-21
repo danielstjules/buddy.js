@@ -3,4 +3,4 @@ node_js:
   - "0.11"
   - "0.10"
 
-script: ./bin/buddy lib
+script: ./bin/buddy lib -i 0,1,2
