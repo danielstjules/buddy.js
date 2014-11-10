@@ -95,8 +95,8 @@ It can be installed via `npm` using:
 npm install -g buddy.js
 ```
 
-If you'd like to use buddy.js with Grunt, take a look at
-[grunt-buddyjs](https://github.com/eugene-bulkin/grunt-buddyjs)
+Also available: [grunt-buddyjs](https://github.com/eugene-bulkin/grunt-buddyjs),
+and [gulp-buddy.js](https://github.com/Semigradsky/gulp-buddy.js)
 
 ## Usage
 
