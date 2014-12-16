@@ -131,7 +131,7 @@ describe('Detector', function() {
 
     detector.run().then(function() {
       expect(found).to.have.length(1);
-      expect(found[0].value).to.be(60);
+      expect(found[0].value).to.be('60');
       expect(found[0].file.substr(-18)).to.be('secondsInMinute.js');
       expect(found[0].startColumn).to.be(9);
       expect(found[0].endColumn).to.be(11);
@@ -146,13 +146,26 @@ describe('Detector', function() {
     }).catch(done);
   });
 
+  it('correctly emits hex and octal values', function(done) {
+    var detector = new Detector([fixtures.hexOctal]);
+    detector.on('found', listener);
+
+    detector.run().then(function() {
+      expect(found).to.have.length(3);
+      expect(found[0].value).to.be('0x1A');
+      expect(found[1].value).to.be('0x02');
+      expect(found[2].value).to.be('071');
+      done();
+    }).catch(done);
+  });
+
   it('skips unnamed constants within the ignore list', function(done) {
     var detector = new Detector([fixtures.ignore], false, [0]);
     detector.on('found', listener);
 
     detector.run().then(function() {
       expect(found).to.have.length(1);
-      expect(found[0].value).to.be(1);
+      expect(found[0].value).to.be('1');
       done();
     }).catch(done);
   });
@@ -164,7 +177,7 @@ describe('Detector', function() {
     detector.run().then(function() {
       expect(found).to.have.length(1);
       expect(found[0].lineNumber).to.be(4);
-      expect(found[0].value).to.be(100);
+      expect(found[0].value).to.be('100');
       done();
     }).catch(done);
   });
@@ -176,7 +189,7 @@ describe('Detector', function() {
 
       detector.run().then(function() {
         expect(found).to.have.length(1);
-        expect(found[0].value).to.be(10);
+        expect(found[0].value).to.be('10');
         done();
       }).catch(done);
     });
@@ -187,7 +200,7 @@ describe('Detector', function() {
 
       detector.run().then(function() {
         expect(found).to.have.length(1);
-        expect(found[0].value).to.be(10);
+        expect(found[0].value).to.be('10');
         done();
       }).catch(done);
     });

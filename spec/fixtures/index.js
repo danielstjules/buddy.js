@@ -4,7 +4,7 @@ var absolutePaths = {};
 var fixtures = ['emptyFile', 'singleVariable', 'es5', 'secondsInMinute',
                 'lineIgnore', 'blockIgnore', 'objectProperties',
                 'ignore', 'constVariable', 'constObject', 'shebang',
-                'testFile'];
+                'testFile', 'hexOctal'];
 
 absolutePaths.testFileOutput = path.resolve(__dirname, 'testFileOutput');
 

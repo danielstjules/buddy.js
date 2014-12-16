@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "bluebird": "*",
-    "acorn": "0.9.0",
+    "acorn": "0.10.0",
     "commander": "*",
     "node-filepaths": "0.0.2",
     "chalk": "*",
@@ -37,6 +37,6 @@
     "buddy": "./bin/buddy"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha --recursive -R spec spec"
+    "test": "./node_modules/.bin/mocha -R spec spec/unit spec/integration"
   }
 }
