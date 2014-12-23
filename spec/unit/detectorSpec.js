@@ -105,6 +105,16 @@ describe('Detector', function() {
     }).catch(done);
   });
 
+ it('emits no events for literals used in assignmentExpressions', function(done) {
+    var detector = new Detector([fixtures.assignmentExpressions]);
+    detector.on('found', listener);
+
+    detector.run().then(function() {
+      expect(found).to.have.length(0);
+      done();
+    }).catch(done);
+  });
+
   it('emits no events for numbers marked by ignore:line', function(done) {
     var detector = new Detector([fixtures.lineIgnore]);
     detector.on('found', listener);
