@@ -149,7 +149,7 @@ describe('Detector', function() {
       expect(found[0].file.substr(-18)).to.be('secondsInMinute.js');
       expect(found[0].startColumn).to.be(9);
       expect(found[0].endColumn).to.be(11);
-      expect(found[0].fileLength).to.be(3);
+      expect(found[0].fileLength).to.be(4);
       expect(found[0].lineNumber).to.be(2);
       expect(found[0].lineSource).to.be('  return 60;');
       expect(found[0].contextLines).to.eql([
