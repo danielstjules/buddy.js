@@ -12,6 +12,7 @@ var reporters = require('../lib/reporters');
 program
   .version(require('../package.json').version)
   .usage('[options] <paths ...>')
+  .option('-d, --detect-objects', 'detect object expressions and properties')
   .option('-e, --enforce-const', 'require literals to be defined using const')
   .option('-i, --ignore <numbers>', 'list numbers to ignore (default: 0,1)')
   .option('-I, --disable-ignore', 'disables the ignore list')
@@ -34,9 +35,9 @@ if (fs.existsSync(rcPath) && fs.lstatSync(rcPath).isFile()) {
     process.exit(1);
   }
 
-  ['enforceConst', 'ignore', 'reporter'].forEach(function(option) {
-    if (program[option] === undefined) {
-      program[option] = rc[option];
+  ['detectObjects', 'enforceConst', 'ignore', 'reporter'].forEach(function(opt) {
+    if (program[opt] === undefined) {
+      program[opt] = rc[opt];
     }
   });
 }
@@ -71,7 +72,11 @@ var ignore = program.disableIgnore ? [] : (program.ignore || [0, 1]);
 // Retrieve the requested reporter, defaulting to simple
 var reporterType = reporters[program.reporter] || reporters.simple;
 
-var detector = new Detector(paths, program.enforceConst, ignore);
+var detector = new Detector(paths, {
+  detectObjects: program.detectObjects,
+  enforceConst: program.enforceConst,
+  ignore: ignore
+});
 var reporter = new reporterType(detector);
 
 var found = 0;

@@ -27,13 +27,17 @@ describe('Detector', function() {
     });
 
     it('accepts a boolean to enforce the use of const', function() {
-      var detector = new Detector([], true);
+      var detector = new Detector([], {
+        enforceConst: true
+      });
       expect(detector._enforceConst).to.be(true);
     });
 
     it('accepts an array of numbers to ignore', function() {
       var ignore = [1, 2, 3.4];
-      var detector = new Detector([], false, ignore);
+      var detector = new Detector([], {
+        ignore: ignore
+      });
       expect(detector._ignore).to.be(ignore);
     });
   });
@@ -99,13 +103,13 @@ describe('Detector', function() {
 
     detector.run().then(function() {
       expect(found).to.have.length(2);
-      expect(found[0].lineSource).to.be('colors.BLUE = 2 + 1;');
-      expect(found[1].lineSource).to.be('colors.BLUE = 2 + 1;');
+      expect(found[0].value).to.be('4');
+      expect(found[1].value).to.be('5');
       done();
     }).catch(done);
   });
 
- it('emits no events for literals used in assignmentExpressions', function(done) {
+ it('emits no events for literals used in AssignmentExpressions', function(done) {
     var detector = new Detector([fixtures.assignmentExpressions]);
     detector.on('found', listener);
 
@@ -170,7 +174,9 @@ describe('Detector', function() {
   });
 
   it('skips unnamed constants within the ignore list', function(done) {
-    var detector = new Detector([fixtures.ignore], false, [0]);
+    var detector = new Detector([fixtures.ignore], {
+      ignore: [0]
+    });
     detector.on('found', listener);
 
     detector.run().then(function() {
@@ -192,9 +198,42 @@ describe('Detector', function() {
     }).catch(done);
   });
 
+  describe('with detectObjects set to true', function() {
+    it('emits a "found" event for object literals', function(done) {
+      var detector = new Detector([fixtures.objectLiterals], {
+        detectObjects: true
+      });
+      detector.on('found', listener);
+
+      detector.run().then(function() {
+        expect(found).to.have.length(1);
+        expect(found[0].value).to.be('42');
+        done();
+      }).catch(done);
+    });
+
+    it('emits a "found" event for property assignments', function(done) {
+      var detector = new Detector([fixtures.objectProperties], {
+        detectObjects: true
+      });
+      detector.on('found', listener);
+
+      detector.run().then(function() {
+        expect(found).to.have.length(4);
+        expect(found[0].value).to.be('2');
+        expect(found[1].value).to.be('3');
+        expect(found[2].value).to.be('4');
+        expect(found[3].value).to.be('5');
+        done();
+      }).catch(done);
+    });
+  });
+
   describe('with enforceConst set to true', function() {
     it('emits a "found" event for variable declarations', function(done) {
-      var detector = new Detector([fixtures.constVariable], true);
+      var detector = new Detector([fixtures.constVariable], {
+        enforceConst: true
+      });
       detector.on('found', listener);
 
       detector.run().then(function() {
@@ -205,7 +244,9 @@ describe('Detector', function() {
     });
 
     it('emits a "found" event for object expressions', function(done) {
-      var detector = new Detector([fixtures.constObject], true);
+      var detector = new Detector([fixtures.constObject], {
+        enforceConst: true
+      });
       detector.on('found', listener);
 
       detector.run().then(function() {
