@@ -107,6 +107,7 @@ Options:
 
   -h, --help                             output usage information
   -V, --version                          output the version number
+  -d, --detect-objects                   detect object expressions and properties
   -e, --enforce-const                    require literals to be defined using const
   -i, --ignore <numbers>                 list numbers to ignore (default: 0,1)
   -I, --disable-ignore                   disables the ignore list
@@ -119,9 +120,10 @@ used in place of the defaults listed above. For example:
 
 ``` javascript
 {
-  "enforceConst": false,
-  "ignore":       [0, 1, 2], // Use empty array to disable ignore
-  "reporter":     "detailed"
+  "detectObjects": false,
+  "enforceConst":  false,
+  "ignore":        [0, 1, 2], // Use empty array to disable ignore
+  "reporter":      "detailed"
 }
 ```
 
