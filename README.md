@@ -111,7 +111,7 @@ Options:
   -e, --enforce-const                    require literals to be defined using const
   -i, --ignore <numbers>                 list numbers to ignore (default: 0,1)
   -I, --disable-ignore                   disables the ignore list
-  -r, --reporter [simple|detailed|json]  specify the reporter to use (default: simple)
+  -r, --reporter [simple|detailed|json]  specify reporter to use (default: simple)
   -C, --no-color                         disables colors
 ```
 

@@ -17,7 +17,7 @@ program
   .option('-i, --ignore <numbers>', 'list numbers to ignore (default: 0,1)')
   .option('-I, --disable-ignore', 'disables the ignore list')
   .option('-r, --reporter [simple|detailed|json]',
-    'specify the reporter to use (default: simple)')
+    'specify reporter to use (default: simple)')
   .option('-C, --no-color', 'disables colors')
   .parse(process.argv);
 
