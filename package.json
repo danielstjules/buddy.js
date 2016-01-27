@@ -1,6 +1,6 @@
 {
   "name": "buddy.js",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Magic number detector for javascript",
   "keywords": [
     "magic",
