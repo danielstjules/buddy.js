@@ -8,4 +8,4 @@ node_js:
 
 script:
   - npm test
-  - ./bin/buddy lib -i 0,1,2
+  - ./bin/buddy lib -i 0,1,2,3
