@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "bluebird": "*",
-    "acorn": "0.10.0",
+    "acorn": "2.6.4",
     "commander": "*",
     "node-filepaths": "0.0.2",
     "chalk": "*",
