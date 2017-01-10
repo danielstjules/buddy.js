@@ -34,7 +34,7 @@ which are ignored by default.
 
 Who's a good boy?
 
-#### What are magic numbers?
+### What are magic numbers?
 
 Magic numbers are unnamed numerical constants, though the term can sometimes
 be used to refer to other literals as well. Take the following contrived
