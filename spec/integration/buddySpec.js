@@ -1,5 +1,7 @@
 var expect   = require('expect.js');
-var fixtures = require('../fixtures');
+var path     = require('path');
+var dirmap   = require('dirmap');
+var fixtures = dirmap(path.resolve(__dirname, '../fixtures'), true);
 var fs       = require('fs');
 var exec     = require('child_process').exec;
 

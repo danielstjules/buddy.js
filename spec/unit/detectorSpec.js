@@ -1,6 +1,8 @@
 var expect       = require('expect.js');
 var EventEmitter = require('events').EventEmitter;
-var fixtures     = require('../fixtures');
+var path         = require('path');
+var dirmap       = require('dirmap');
+var fixtures     = dirmap(path.resolve(__dirname, '../fixtures'), true);
 var Detector     = require('../../lib/detector.js');
 
 describe('Detector', function() {
