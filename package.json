@@ -38,6 +38,6 @@
     "buddy": "./bin/buddy"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha -R spec spec/unit spec/integration"
+    "test": "mocha -R spec spec/unit spec/integration"
   }
 }
