@@ -63,7 +63,7 @@ describe('Detector', function() {
       var detector = new Detector();
       detector.run().catch(function(err) {
         expect(err).to.be.an(Error);
-        expect(err.message).to.be('filePaths must be a non-empty array of paths');
+        expect(err.message).to.be('filePaths must be a non-empty array of paths. Buddy could not find any JS files to analyze.');
         done();
       });
     });
