@@ -64,6 +64,7 @@ example.js:3 | return beforeTax + (beforeTax * 0.13);
 If the tax rate was used in multiple locations, it's prone to human error.
 And it might not be immediately clear that the 9.99 charge is a flat rate
 shipping cost, which can affect maintenance. So how would this be improved?
+We can assign variables to these constants to avoid magic numbers.
 
 ``` javascript
 var FLAT_SHIPPING_COST = 9.99;
