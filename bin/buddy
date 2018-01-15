@@ -9,6 +9,10 @@ var program   = require('commander');
 var Detector  = require('../lib/detector');
 var reporters = require('../lib/reporters');
 
+function paths(val) {
+  return val.split(',');
+}
+
 program
   .version(require('../package.json').version)
   .usage('[options] <paths ...>')
@@ -19,6 +23,7 @@ program
   .option('-r, --reporter [simple|detailed|json]',
     'specify reporter to use (default: simple)')
   .option('-C, --no-color', 'disables colors')
+  .option('-E, --exclude <paths>', 'folders to exclude separated by comma', paths)
   .parse(process.argv);
 
 // Check and parse .buddyrc file, if it exists
@@ -44,17 +49,16 @@ if (fs.existsSync(rcPath) && fs.lstatSync(rcPath).isFile()) {
 
 // Assume all unconsumed arguments are paths
 var suppliedPaths = (program.args.length) ? program.args : ['.'];
-
+var ignoredPaths = ['node_modules', '.git'].concat(program.exclude || []);
 // chalk doesn't support short flags by default
 if (!program.color) {
   chalk.enabled = false;
 }
-
 // Iterate over the given paths, and recurse if they're directories
 try {
   var paths = filepaths.getSync(suppliedPaths, {
     suffix: '.js',
-    ignore: 'node_modules'
+    ignore: ignoredPaths
   });
 } catch(e) {
   console.log(e.message);
