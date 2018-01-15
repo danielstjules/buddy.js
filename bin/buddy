@@ -23,7 +23,7 @@ program
   .option('-r, --reporter [simple|detailed|json]',
     'specify reporter to use (default: simple)')
   .option('-C, --no-color', 'disables colors')
-  .option('-E, --exclude <paths>', 'folders to exclude separated by comma', paths)
+  .option('-E, --exclude <paths>', 'folders to exclude separated by comma (ex -> -E test,bin)', paths)
   .parse(process.argv);
 
 // Check and parse .buddyrc file, if it exists
