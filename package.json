@@ -26,7 +26,7 @@
     "bluebird": "*",
     "chalk": "*",
     "commander": "*",
-    "node-filepaths": "0.0.2",
+    "node-filepaths": "^0.1.0",
     "strip-json-comments": "1.0.2"
   },
   "devDependencies": {

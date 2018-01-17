@@ -113,6 +113,7 @@ Options:
   -I, --disable-ignore                   disables the ignore list
   -r, --reporter [simple|detailed|json]  specify reporter to use (default: simple)
   -C, --no-color                         disables colors
+  -X, --exclude                         folders to exclude separated by comma
 ```
 
 If a `.buddyrc` file is located in the project directory, its values will be
@@ -123,7 +124,8 @@ used in place of the defaults listed above. For example:
   "detectObjects": false,
   "enforceConst":  false,
   "ignore":        [0, 1, 2], // Use empty array to disable ignore
-  "reporter":      "detailed"
+  "reporter":      "detailed",
+  "exclude":["git","node_modules"] // Use empty array to disable ignore
 }
 ```
 
