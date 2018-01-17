@@ -9,6 +9,10 @@ var program   = require('commander');
 var Detector  = require('../lib/detector');
 var reporters = require('../lib/reporters');
 
+const excludePaths=function (excludedPaths) {
+  return excludedPaths.split(',');
+}
+
 program
   .version(require('../package.json').version)
   .usage('[options] <paths ...>')
@@ -19,7 +23,9 @@ program
   .option('-r, --reporter [simple|detailed|json]',
     'specify reporter to use (default: simple)')
   .option('-C, --no-color', 'disables colors')
+  .option('-X --exclude <paths>','folders to exclude separated by comma ',excludePaths)
   .parse(process.argv);
+
 
 // Check and parse .buddyrc file, if it exists
 var rcPath, rcContents, rc, opt;
@@ -54,7 +60,7 @@ if (!program.color) {
 try {
   var paths = filepaths.getSync(suppliedPaths, {
     suffix: '.js',
-    ignore: 'node_modules'
+    ignore: ['node_modules','git'].concat(program.exclude||[])
   });
 } catch(e) {
   console.log(e.message);

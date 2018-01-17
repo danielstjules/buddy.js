@@ -27,4 +27,19 @@ describe('bin/buddy', function() {
       done();
     });
   });
+  it('excludes fixtures and unit directory', function(done) {
+    // Absolute paths may vary
+    var expectedOutput = [
+      'No magic numbers found across 1 file'
+    ];
+    exec('./bin/buddy -C -X fixtures,unit ./spec' , function(err, stdout, stderr) {
+      // Ignore err, since the command will fail due to detected
+      // magic numbers
+      expect(stderr).to.be.empty();
+      expectedOutput.forEach(function(str) {
+        expect(stdout).to.contain(str);
+      });
+      done();
+    });
+  });
 });
