@@ -186,3 +186,8 @@ var MINUTE = 60 * SECOND;
 var HOUR = 60 * MINUTE;
 // buddy ignore:end
 ```
+
+
+
+## Related
+- [Eslint's no-magic-numbers rule](https://eslint.org/docs/rules/no-magic-numbers)
